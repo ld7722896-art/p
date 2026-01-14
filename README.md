@@ -1,1 +1,188 @@
-# p
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Administradores</title>
+
+<style>
+body {
+  background: #e8f0ff;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+h2 { margin-top: 20px; }
+
+form {
+  background: #ffffff;
+  width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+input, select {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+button {
+  background:#007BFF;
+  color:white;
+  border:none;
+  padding:10px;
+  width: 95%;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#0056cc;
+}
+
+table {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 25px auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+
+th {
+  background:#007BFF;
+  color:white;
+  padding:12px;
+}
+
+td {
+  padding:10px;
+  border-bottom:1px solid #ddd;
+}
+
+tr:nth-child(even){ background:#f2f6ff; }
+
+a {
+  cursor:pointer;
+  color:#007BFF;
+  font-weight:bold;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Registro de Administradores</h2>
+
+<form id="formAdmin">
+  <input type="hidden" id="id">
+
+  Usuario:
+  <input type="text" id="usuario" required>
+
+  Contraseña:
+  <input type="password" id="contrasena" required>
+
+  Nombre Completo:
+  <input type="text" id="nombre" required>
+
+  Nivel de Acceso:
+  <select id="nivel">
+    <option>Básico</option>
+    <option>Medio</option>
+    <option>Avanzado</option>
+  </select>
+
+  <button type="submit">Guardar</button>
+</form>
+
+<table>
+<thead>
+<tr>
+  <th>ID</th>
+  <th>Usuario</th>
+  <th>Nombre</th>
+  <th>Nivel</th>
+  <th>Modificar</th>
+  <th>Eliminar</th>
+</tr>
+</thead>
+<tbody id="tabla"></tbody>
+</table>
+
+<script>
+let admins = JSON.parse(localStorage.getItem("admins")) || [];
+
+const form = document.getElementById("formAdmin");
+const tabla = document.getElementById("tabla");
+
+function mostrar() {
+  tabla.innerHTML = "";
+  admins.forEach((a, i) => {
+    tabla.innerHTML += `
+      <tr>
+        <td>${i}</td>
+        <td>${a.usuario}</td>
+        <td>${a.nombre}</td>
+        <td>${a.nivel}</td>
+        <td><a onclick="editar(${i})">Modificar</a></td>
+        <td><a onclick="eliminar(${i})">Eliminar</a></td>
+      </tr>
+    `;
+  });
+}
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const id = document.getElementById("id").value;
+  const admin = {
+    usuario: usuario.value,
+    contrasena: contrasena.value,
+    nombre: nombre.value,
+    nivel: nivel.value
+  };
+
+  if (id === "") {
+    admins.push(admin);
+    alert("Administrador registrado");
+  } else {
+    admins[id] = admin;
+    alert("Administrador actualizado");
+  }
+
+  localStorage.setItem("admins", JSON.stringify(admins));
+  form.reset();
+  document.getElementById("id").value = "";
+  mostrar();
+});
+
+function editar(i) {
+  const a = admins[i];
+  document.getElementById("id").value = i;
+  usuario.value = a.usuario;
+  contrasena.value = a.contrasena;
+  nombre.value = a.nombre;
+  nivel.value = a.nivel;
+}
+
+function eliminar(i) {
+  if (confirm("¿Eliminar administrador?")) {
+    admins.splice(i, 1);
+    localStorage.setItem("admins", JSON.stringify(admins));
+    mostrar();
+  }
+}
+
+mostrar();
+</script>
+
+<a href="jovenes.html">IR A JÓVENES</a><br>
+<a href="usuario.html">Volver a usuario y contraseña</a>
+
+</body>
+</html>
