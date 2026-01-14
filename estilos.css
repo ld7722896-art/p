@@ -1,0 +1,88 @@
+<style>
+body {
+  background: #e8f0ff;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+/* --- FORMULARIO --- */
+form {
+  background: #ffffff;
+  width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form select:focus {
+  border-color: #007BFF;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+form input[type="submit"] {
+  background: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+form input[type="submit"]:hover {
+  background: #0056cc;
+}
+
+/* --- TABLAS --- */
+table {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 25px auto;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th {
+  background-color: #007BFF;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f6ff;
+}
+
+tr:hover {
+  background-color: #d9e8ff;
+  transition: 0.3s;
+}
+</style>

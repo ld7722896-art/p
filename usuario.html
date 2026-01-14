@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Acceso</title>
+
+    <style>
+        body {
+            background: #f4f1ec;
+            font-family: Arial, sans-serif;
+        }
+
+        .contenedor {
+            width: 330px;
+            margin: 120px auto;
+            background: #ffffff;
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            color: #8b4513;
+        }
+
+        button {
+            background: #8b4513;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #5c2e0f;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .resultado p {
+            background: #f1f1f1;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+    <h2>Generar Acceso</h2>
+
+    <button onclick="generarDatos()">Dar información</button>
+
+    <div class="resultado">
+        <p><strong>Usuario:</strong> <span id="usuario"></span></p>
+        <p><strong>Contraseña:</strong> <span id="password"></span></p>
+        <p id="contador"></p>
+    </div>
+</div>
+
+<script>
+    // Obtener el último usuario guardado
+    let contadorUsuario = localStorage.getItem("contadorUsuario");
+    contadorUsuario = contadorUsuario ? parseInt(contadorUsuario) : 0;
+
+    function generarDatos() {
+        contadorUsuario++;
+        localStorage.setItem("contadorUsuario", contadorUsuario);
+
+        let letras = "abcdefghijklmnopqrstuvwxyz";
+        let password =
+            letras.charAt(Math.floor(Math.random() * letras.length)) +
+            letras.charAt(Math.floor(Math.random() * letras.length));
+
+        document.getElementById("usuario").textContent = contadorUsuario;
+        document.getElementById("password").textContent = password;
+
+        let tiempo = 5;
+        document.getElementById("contador").textContent =
+            "Redirigiendo en " + tiempo + " segundos...";
+
+        let intervalo = setInterval(() => {
+            tiempo--;
+            document.getElementById("contador").textContent =
+                "Redirigiendo en " + tiempo + " segundos...";
+
+            if (tiempo === 0) {
+                clearInterval(intervalo);
+                window.location.href = "administradores.php"; // 👉 AQUÍ PONES TU LINK
+            }
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
